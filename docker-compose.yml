@@ -1,0 +1,52 @@
+version: "1.0"
+
+services:
+  frontend:
+    container_name: frontend
+    image: liuuner/m347-frontend
+    restart: always
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=bbw123
+      - MYSQL_DATABASE=business
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    image: amd64/phpmyadmin:latest
+
+    ports:
+      - "81:80"
+    environment:
+      PMA_HOST: mysql
+
+  backend:
+    container_name: backend
+    image: liuuner/m347-backend
+    restart: always
+    environment:
+      - MARIA_DB_HOST=mysql
+      - MARIA_DB_PORT=3306
+      - MARIA_DB_DATABASE=business
+      - MARIA_DB_USERNAME=root
+      - MARIA_DB_PASSWORD=bbw123
+    build:
+      context: backend
+      dockerfile: Dockerfile
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - mysql

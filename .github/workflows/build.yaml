@@ -1,0 +1,31 @@
+name: Publish Docker Images
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Publish Backend
+        uses: ./.github/actions/publish-docker
+        with:
+          image-name: 'm347-backend'
+          context: './backend'
+
+      - name: Publish Frontend
+        uses: ./.github/actions/publish-docker
+        with:
+          image-name: 'm347-frontend'
+          context: './frontend'
