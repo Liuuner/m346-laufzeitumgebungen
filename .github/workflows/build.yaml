@@ -23,9 +23,13 @@ jobs:
         with:
           image-name: 'm347-backend'
           context: './backend'
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Publish Frontend
         uses: ./.github/actions/publish-docker
         with:
           image-name: 'm347-frontend'
           context: './frontend'
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-password: ${{ secrets.DOCKER_PASSWORD }}
