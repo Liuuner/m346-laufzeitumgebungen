@@ -11,6 +11,8 @@ inputs:
     required: true
   docker-password:
     required: true
+  docker-registry:
+    required: true
 runs:
   using: 'composite'
   steps:
@@ -42,6 +44,6 @@ runs:
     - name: Generate artifact attestation
       uses: actions/attest-build-provenance@v1
       with:
-        subject-name: '${{ vars.REGISTRY }}/liuuner/${{ inputs.image-name }}'
+        subject-name: '${{ inputs.docker-registry }}/liuuner/${{ inputs.image-name }}'
         subject-digest: ${{ steps.push.outputs.digest }}
         push-to-registry: true

@@ -25,6 +25,7 @@ jobs:
           context: './backend'
           docker-username: ${{ secrets.DOCKER_USERNAME }}
           docker-password: ${{ secrets.DOCKER_PASSWORD }}
+          docker-registry: ${{ vars.REGISTRY }}
 
       - name: Publish Frontend
         uses: ./.github/actions/publish-docker
@@ -33,3 +34,4 @@ jobs:
           context: './frontend'
           docker-username: ${{ secrets.DOCKER_USERNAME }}
           docker-password: ${{ secrets.DOCKER_PASSWORD }}
+          docker-registry: ${{ vars.REGISTRY }}
