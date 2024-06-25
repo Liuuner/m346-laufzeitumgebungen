@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m347-frontend
+  labels:
+    app: m347-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m347-frontend
+  template:
+    metadata:
+      name: m347-frontend
+      labels:
+        app: m347-frontend
+    spec:
+      containers:
+        - name: m347-frontend
+          image: liuuner/m347-frontend
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 80
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always

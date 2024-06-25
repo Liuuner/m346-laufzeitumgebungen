@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m347-backend
+  labels:
+    app: m347-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m347-backend
+  template:
+    metadata:
+      name: m347-backend
+      labels:
+        app: m347-backend
+    spec:
+      containers:
+        - name: m347-backend
+          image: liuuner/m347-backend
+          imagePullPolicy: Always
+          env:
+            - name: MARIA_DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: mariadb-host
+                  name: m347-configmap
+            - name: MARIA_DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: mariadb-port
+                  name: m347-configmap
+            - name: MARIA_DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  key: mariadb-database
+                  name: m347-configmap
+            - name: MARIA_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: m347-basic-auth
+            - name: MARIA_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: m347-basic-auth
+
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+      
