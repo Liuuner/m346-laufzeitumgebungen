@@ -1,7 +1,5 @@
 # M346 - Laufzeitumgebungen
 
----
-
 ## Laufendes Projekt
 
 Das Projekt läuft auf
@@ -53,7 +51,7 @@ Dieses Problem konnte ich mit dem [Tutorial von DigitalOcean](https://www.digita
 #### Github-Actions
 Ich wollte dass nur dann ein Build und Push gemacht wird wenn ich einen Release tätige. Damit stimmen die Versionsnummern immer klar mit dem Codestand der Version überein.
 Dafür schrieb ich einen [Release Workflow](.github/workflows/release.yaml) welcher:
-- Die nächste Versionsnummer berechnet auf basis vom input { Major, Minor, Patch }
+- Die nächste Versionsnummer berechnet auf basis vom Input { Major, Minor, Patch }
 - Ein bestimmter Commit Hash mit der Versionsnummer taggt
 - Eine Release Page mit dem Changelog generiert
 Die nächste Versionsnummer wird mit der [SemVers Action](.github/actions/semVers/action.yml) berechnet welche eigentlich nur ein Bash Script ist.
